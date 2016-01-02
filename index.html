@@ -284,7 +284,17 @@
      }
 
      function getRandomPalette() {
+         var url = "http://www.colourlovers.com/api/palettes/random";
 
+         $.ajax({
+             url: url,
+             jsonp: "callback",
+             dataType: "jsonp",
+             data: {
+                 jsonCallback: "getResponse",
+             },
+
+         });
      }
 
 
@@ -294,6 +304,8 @@
          $.each(data["colors"], function(index, value) {
            window.colours[index] = "#"+value;
          });
+
+         e("palette").value = data["id"];
 
          }
 
