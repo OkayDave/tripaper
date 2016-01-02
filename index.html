@@ -97,8 +97,27 @@
 
                     </div>
 
+              </div>
+
+              <div class="row">
+
+                  <div class="col-md-12">
+                    <ul class="controls">
+                      <li class="input-group">
+                        <span class="input-group-addon">
+                            ColourLovers Palette ID:
+                        </span>
+                        <input class="form-control" type="text" id="palette" value="629637"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" onclick="getRandomPalette()">Random Palette &#128472;</button>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
 
               </div>
+
             <p class="lead">
               <a href="#" id="generate" class="btn btn-lg btn-primary" onclick="renderTriPaper()">Generate</a>
             </p>
@@ -119,42 +138,32 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./index_files/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./index_files/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./index_files/ie10-viewport-bug-workaround.js"></script>
   
 
     <script type="text/javascript">
 
-
      function init() {
-         console.log("init");
          e("width").value =  window.screen.width;
          e("height").value = window.screen.height;
          e("shape-width").value = 125;
          e("shape-height").value = 125;
 
 
-         console.log(e("fill").value);
-         console.log(e("outline").value);
+         getPalette();
+
+
+         $("#palette").on('change', getPalette);
 
      }
 
      function getColour(lastColour) {
-          colours = ["#556270",
-                     "#4ecdc4",
-                     "#c7f464",
-                     "#ff6b6b",
-                     "#c44d58"];
 
+         return window.colours[Math.floor(Math.random()*colours.length)] ;
 
-         do {
-           thisColour = colours[Math.floor(Math.random()*colours.length)] ;
-         } while (thisColour == lastColour);
-
-         return thisColour;
      }
 
      function renderTriPaper() {
@@ -257,6 +266,36 @@
      function e(id) {
        return document.getElementById(id);
      }
+
+
+     function getPalette() {
+       console.log("gp");
+       var url = "http://www.colourlovers.com/api/palette/" + e("palette").value;
+
+         $.ajax({
+             url: url,
+             jsonp: "callback",
+             dataType: "jsonp",
+             data: {
+               jsonCallback: "getResponse",
+             },
+
+         });
+     }
+
+     function getRandomPalette() {
+
+     }
+
+
+     function getResponse(data) {
+         data = data[0];
+         window.colours = [];
+         $.each(data["colors"], function(index, value) {
+           window.colours[index] = "#"+value;
+         });
+
+         }
 
      init();
 
