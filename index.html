@@ -111,10 +111,10 @@
 
      function init() {
          console.log("init");
-         e("width").value = window.screen.width;
-         e("height").value = window.screen.height;
-         e("shape-width").value = 25;
-         e("shape-height").value = 50;
+         e("width").value =  500 || window.screen.width;
+         e("height").value = 500 || window.screen.height;
+         e("shape-width").value = 125;
+         e("shape-height").value = 125;
 
      }
 
@@ -140,17 +140,25 @@
          canvas.height = e("height").value;
          canvas.width = e("width").value;
 
-         var height = e("shape-height").value;
-         var width = e("shape-width").value;
+         var height = parseInt(e("shape-height").value);
+         var width = parseInt(e("shape-width").value);
 
          var rows = Math.ceil(canvas.height/height);
          var cols = Math.ceil(canvas.width/width);
 
+         console.log("-----------------");
+         console.log("ch", canvas.height);
+         console.log("cw", canvas.width);
+         console.log("sh", height);
+         console.log("sw", width);
+         console.log("ro", rows);
+         console.log("co", cols);
+
 
          for(var col = 0; col <= cols; col++) {
              for(var row = 0; row <= rows; row++) {
-                 var colour1 = getColour();
-                 var colour2 = getColour(colour1);
+               var colour1 = getColour();
+               var colour2 = getColour(colour1);
                drawTopTriangle(ctx, colour1, col, row, width, height);
                drawBottomTriangle(ctx, colour2, col, row, width, height);
              }
@@ -170,8 +178,9 @@
          starty = 0 + (row*width);
 
          ctx.moveTo(startx, starty);
+
          ctx.lineTo(startx, starty+height);
-         ctx.lineTo(startx+width+1, starty);
+         ctx.lineTo(startx+width, starty+height);
          ctx.lineTo(startx, starty);
 
          ctx.closePath();
@@ -180,19 +189,21 @@
 
       function drawBottomTriangle(ctx, colour, col, row, width, height) {
           ctx.fillStyle = colour;
-          ctx.strokeStyle = colour;
           ctx.beginPath();
 
-          startx = 0 + (col*height) + height;
-          starty = 0 + (row*width) + width;
+          startx = 0 + (col*height);
+          starty = 0 + (row*width);
 
-          ctx.moveTo(startx, starty);
-          ctx.lineTo(startx, starty-height);
-          ctx.lineTo(startx-width-1, starty);
+          ctx.moveTo(startx+width, starty);
+
           ctx.lineTo(startx, starty);
+          ctx.lineTo(startx+width, starty+height);
+          ctx.lineTo(startx+width, starty);
 
           ctx.closePath();
+
           ctx.fill();
+          //ctx.stroke();
      }
 
      function e(id) {
