@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://getbootstrap.com/examples/cover/ -->
+<html lang="en" data-ember-extension="1"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>TriPaper || Wallpaper Generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./index_files/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="./index_files/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./index_files/cover.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body id="body">
+    <canvas id="rendering" style="position: absolute; display: none;"></canvas>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="inner cover">
+
+
+            <p class="lead">
+              <a href="#" id="generate" class="btn btn-lg btn-default" onclick="renderTriPaper()">Generate</a>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>'Cover' template for <a href="http://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./index_files/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="./index_files/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./index_files/ie10-viewport-bug-workaround.js"></script>
+  
+
+    <script type="text/javascript">
+
+
+     function getColour() {
+          colours = ["#556270",
+                     "#4ecdc4",
+                     "#c7f464",
+                     "#ff6b6b",
+                     "#c44d58"];
+
+
+
+         return colours[Math.floor(Math.random()*colours.length)] ;
+     }
+
+     function renderTriPaper() {
+        var canvas = document.getElementById("rendering");
+        var ctx = canvas.getContext("2d");
+
+
+
+
+
+
+         canvas.height = window.screen.height;
+         canvas.width = window.screen.width;
+
+         var height = 15;
+         var width = 15;
+
+         var rows = Math.ceil(canvas.height/height);
+         var cols = Math.ceil(canvas.width/width);
+
+
+         for(var col = 0; col <= cols; col++) {
+             for(var row = 0; row <= rows; row++) {
+               drawTopTriangle(ctx, getColour(), col, row, width, height);
+               drawBottomTriangle(ctx, getColour(), col, row, width, height);
+             }
+         }
+
+
+         console.log("height", canvas.height);
+         document.getElementById("body").style.backgroundImage = "url(" +
+                                                                 canvas.toDataURL() +
+                                                                 ")";
+      }
+
+     function drawTopTriangle(ctx, colour, col, row, width, height) {
+         ctx.fillStyle = colour;
+         ctx.beginPath();
+
+         startx = 0 + (col*height);
+         starty = 0 + (row*width);
+
+         ctx.moveTo(startx, starty);
+         ctx.lineTo(startx, starty+height);
+         ctx.lineTo(startx+width+1, starty);
+         ctx.lineTo(startx, starty);
+
+         ctx.closePath();
+         ctx.fill();
+     }
+
+      function drawBottomTriangle(ctx, colour, col, row, width, height) {
+          ctx.fillStyle = colour;
+          ctx.strokeStyle = colour;
+          ctx.beginPath();
+
+          startx = 0 + (col*height) + height;
+          starty = 0 + (row*width) + width;
+
+          ctx.moveTo(startx, starty);
+          ctx.lineTo(startx, starty-height);
+          ctx.lineTo(startx-width-1, starty);
+          ctx.lineTo(startx, starty);
+
+          ctx.closePath();
+          ctx.fill();
+     }
+
+
+    </script>
+  </body>
+</html>
