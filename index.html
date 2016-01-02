@@ -41,40 +41,60 @@
           <div class="inner cover">
 
               <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
 
                       <ul class="controls">
                           <li class="input-group">
                               <span class="input-group-addon">
                                   Image Width:
                               </span>
-                              <input class="form-control" type="number" id="width" />
+                              <input class="form-control" type="text" id="width" />
                           </li>
                           <li class="input-group">
                               <span class="input-group-addon">
                                   Image Height:
                               </span>
-                              <input class="form-control" type="number" id="height" />
+                              <input class="form-control" type="text" id="height" />
                           </li>
                       </ul>
                   </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
 
                         <ul class="controls">
                             <li class="input-group">
                                 <span class="input-group-addon">
                                     Shape Width:
                                 </span>
-                                <input class="form-control" type="number" id="shape-width" />
+                                <input class="form-control" type="text" id="shape-width" />
                             </li>
                             <li class="input-group">
                                 <span class="input-group-addon">
                                     Shape Height:
                                 </span>
-                                <input class="form-control" type="number" id="shape-height" />
+                                <input class="form-control" type="text" id="shape-height" />
                             </li>
                         </ul>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <ul class="controls">
+                            <li class="input-group">
+                                <span class="input-group-addon">
+                                    Fill Shapes?
+                                </span>
+                                <input type="checkbox" id="fill" checked="checked" />
+                            </li>
+                            <li class="input-group">
+                                <span class="input-group-addon">
+                                    Outline Shapes?
+                                </span>
+                               <input type="checkbox" id="outline" />
+                            </li>
+
+                        </ul>
+
                     </div>
 
 
@@ -115,6 +135,10 @@
          e("height").value = 500 || window.screen.height;
          e("shape-width").value = 125;
          e("shape-height").value = 125;
+
+
+         console.log(e("fill").value);
+         console.log(e("outline").value);
 
      }
 
@@ -172,6 +196,7 @@
 
      function drawTopTriangle(ctx, colour, col, row, width, height) {
          ctx.fillStyle = colour;
+         ctx.strokeStyle = "#000";
          ctx.beginPath();
 
          startx = 0 + (col*height);
@@ -184,11 +209,19 @@
          ctx.lineTo(startx, starty);
 
          ctx.closePath();
-         ctx.fill();
+
+         if(hasFill()) {
+             ctx.fill();
+         }
+
+         if(hasOutline()) {
+             ctx.stroke();
+             }
      }
 
       function drawBottomTriangle(ctx, colour, col, row, width, height) {
           ctx.fillStyle = colour;
+          ctx.strokeStyle = "#000";
           ctx.beginPath();
 
           startx = 0 + (col*height);
@@ -202,8 +235,23 @@
 
           ctx.closePath();
 
-          ctx.fill();
-          //ctx.stroke();
+          if(hasFill()) {
+              ctx.fill();
+          }
+
+          if(hasOutline()) {
+              ctx.stroke();
+          }
+     }
+
+
+     function hasFill() {
+       return e("fill").checked;
+
+     }
+
+     function hasOutline() {
+         return e("outline").checked;
      }
 
      function e(id) {
