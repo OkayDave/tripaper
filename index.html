@@ -90,7 +90,7 @@
                                 <span class="input-group-addon">
                                     Outline Shapes?
                                 </span>
-                               <input type="checkbox" id="outline" />
+                               <input type="checkbox" id="outline" checked="checked" />
                             </li>
 
                         </ul>
@@ -131,8 +131,8 @@
 
      function init() {
          console.log("init");
-         e("width").value =  500 || window.screen.width;
-         e("height").value = 500 || window.screen.height;
+         e("width").value =  window.screen.width;
+         e("height").value = window.screen.height;
          e("shape-width").value = 125;
          e("shape-height").value = 125;
 
