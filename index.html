@@ -200,11 +200,15 @@
       }
 
      function drawTopTriangle(ctx,  col, row, width, height) {
+
+         startx = 0 + (col*width);
+         starty = 0 + (row*height);
+
+         height += 2;
+         width += 5;
+
          if(Math.random() < 0.75) {
             ctx.beginPath();
-
-            startx = 0 + (col*width);
-            starty = 0 + (row*height);
 
             ctx.moveTo(startx, starty);
 
@@ -251,6 +255,8 @@
           startx = 0 + (col*width);
           starty = 0 + (row*height);
 
+          height += 5;
+          width += 2;
 
           if (Math.random() < 0.85) {
             ctx.beginPath();
