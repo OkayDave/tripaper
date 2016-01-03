@@ -186,10 +186,8 @@
 
          for(var col = 0; col <= cols; col++) {
              for(var row = 0; row <= rows; row++) {
-               var colour1 = getColour();
-               var colour2 = getColour(colour1);
-               drawTopTriangle(ctx, colour1, col, row, width, height);
-               drawBottomTriangle(ctx, colour2, col, row, width, height);
+               drawTopTriangle(ctx, col, row, width, height);
+               drawBottomTriangle(ctx,  col, row, width, height);
              }
          }
 
@@ -201,9 +199,9 @@
          $("#download").css("visibility","visible");
       }
 
-     function drawTopTriangle(ctx, colour, col, row, width, height) {
-         ctx.fillStyle = colour;
-         ctx.strokeStyle = "#000";
+     function drawTopTriangle(ctx,  col, row, width, height) {
+         ctx.fillStyle = getColour();
+         ctx.strokeStyle = getColour();
          ctx.beginPath();
 
          startx = 0 + (col*width);
@@ -226,9 +224,9 @@
              }
      }
 
-      function drawBottomTriangle(ctx, colour, col, row, width, height) {
-          ctx.fillStyle = colour;
-          ctx.strokeStyle = "#000";
+      function drawBottomTriangle(ctx, col, row, width, height) {
+          ctx.fillStyle = getColour();
+          ctx.strokeStyle = getColour();
           ctx.beginPath();
 
           startx = 0 + (col*width);
