@@ -121,9 +121,14 @@
 
 
               </div>
+              <hr />
 
             <p class="lead">
-              <a href="#" id="generate" class="btn btn-lg btn-primary" onclick="renderTriPaper()">Generate</a>
+                <button id="generate" class="btn btn-lg btn-primary" onclick="renderTriPaper()" type="button">Generate &#9881;</button>
+
+                <a id="download" class="btn btn-lg btn-danger">Download &dArr;</a>
+
+                <a href="#" target="_blank" style="display: none" id="download-target"></a>
             </p>
           </div>
 
@@ -159,6 +164,7 @@
          getPalette();
 
          $("#palette").on('change', getPalette);
+         $("#download").click(download);
      }
 
      function getColour(lastColour) {
@@ -191,6 +197,8 @@
          document.getElementById("body").style.backgroundImage = "url(" +
                                                                  canvas.toDataURL() +
                                                                  ")";
+
+         $("#download").css("visibility","visible");
       }
 
      function drawTopTriangle(ctx, colour, col, row, width, height) {
@@ -259,7 +267,6 @@
 
 
      function getPalette() {
-       console.log("gp");
        var url = "http://www.colourlovers.com/api/palette/" + e("palette").value;
 
          $.ajax({
@@ -296,6 +303,7 @@
          });
 
          e("palette").value = data["id"];
+         $("#download").attr("download",data["id"]+".png");
 
          refreshPreview();
          }
@@ -311,6 +319,13 @@
 
          });
 
+     }
+
+     function download() {
+         console.log("download");
+         var fileData = e("rendering").toDataURL("image/png");
+         fileData = fileData.replace(/^data:image\/png/,'data:application/octet-stream');
+         e("download").href = fileData;
      }
 
      init();
