@@ -152,18 +152,13 @@
          e("shape-width").value = 125;
          e("shape-height").value = 125;
 
-
          getPalette();
 
-
          $("#palette").on('change', getPalette);
-
      }
 
      function getColour(lastColour) {
-
          return window.colours[Math.floor(Math.random()*colours.length)] ;
-
      }
 
      function renderTriPaper() {
@@ -178,15 +173,6 @@
 
          var rows = Math.ceil(canvas.height/height);
          var cols = Math.ceil(canvas.width/width);
-
-         console.log("-----------------");
-         console.log("ch", canvas.height);
-         console.log("cw", canvas.width);
-         console.log("sh", height);
-         console.log("sw", width);
-         console.log("ro", rows);
-         console.log("co", cols);
-
 
          for(var col = 0; col <= cols; col++) {
              for(var row = 0; row <= rows; row++) {
@@ -208,8 +194,8 @@
          ctx.strokeStyle = "#000";
          ctx.beginPath();
 
-         startx = 0 + (col*height);
-         starty = 0 + (row*width);
+         startx = 0 + (col*width);
+         starty = 0 + (row*height);
 
          ctx.moveTo(startx, starty);
 
@@ -233,8 +219,8 @@
           ctx.strokeStyle = "#000";
           ctx.beginPath();
 
-          startx = 0 + (col*height);
-          starty = 0 + (row*width);
+          startx = 0 + (col*width);
+          starty = 0 + (row*height);
 
           ctx.moveTo(startx+width, starty);
 
