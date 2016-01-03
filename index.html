@@ -200,53 +200,96 @@
       }
 
      function drawTopTriangle(ctx,  col, row, width, height) {
-         ctx.fillStyle = getColour();
-         ctx.strokeStyle = getColour();
-         ctx.beginPath();
+         if(Math.random() < 0.75) {
+            ctx.beginPath();
 
-         startx = 0 + (col*width);
-         starty = 0 + (row*height);
+            startx = 0 + (col*width);
+            starty = 0 + (row*height);
 
-         ctx.moveTo(startx, starty);
+            ctx.moveTo(startx, starty);
 
-         ctx.lineTo(startx, starty+height);
-         ctx.lineTo(startx+width, starty+height);
-         ctx.lineTo(startx, starty);
+            ctx.lineTo(startx, starty+height);
+            ctx.lineTo(startx+width, starty+height);
+            ctx.lineTo(startx, starty);
 
-         ctx.closePath();
+            ctx.closePath();
 
-         if(hasFill()) {
-             ctx.fill();
+             doColour(ctx);
+         } else {
+
+             // west segment
+
+             ctx.beginPath();
+
+             ctx.moveTo(startx, starty);
+             ctx.lineTo(startx, starty+height);
+             ctx.lineTo(startx+(width/2), starty+(height/2));
+             ctx.lineTo(startx, starty);
+
+             ctx.closePath();
+             doColour(ctx);
+
+
+
+             // south segment
+
+             ctx.beginPath();
+
+             ctx.moveTo(startx, starty+height);
+             ctx.lineTo(startx+width, starty+height);
+             ctx.lineTo(startx+(width/2), starty+(height/2));
+             ctx.lineTo(startx, starty+height);
+
+
+             ctx.closePath();
+             doColour(ctx);
          }
 
-         if(hasOutline()) {
-             ctx.stroke();
-             }
      }
 
       function drawBottomTriangle(ctx, col, row, width, height) {
-          ctx.fillStyle = getColour();
-          ctx.strokeStyle = getColour();
-          ctx.beginPath();
-
           startx = 0 + (col*width);
           starty = 0 + (row*height);
 
-          ctx.moveTo(startx+width, starty);
 
-          ctx.lineTo(startx, starty);
-          ctx.lineTo(startx+width, starty+height);
-          ctx.lineTo(startx+width, starty);
+          if (Math.random() < 0.85) {
+            ctx.beginPath();
 
-          ctx.closePath();
+            ctx.moveTo(startx+width, starty);
 
-          if(hasFill()) {
-              ctx.fill();
+            ctx.lineTo(startx, starty);
+            ctx.lineTo(startx+width, starty+height);
+            ctx.lineTo(startx+width, starty);
+
+            ctx.closePath();
+
+            doColour(ctx);
+
+          } else {
+
+              // north segment
+              ctx.beginPath();
+              ctx.moveTo(startx+width, starty);
+              ctx.lineTo(startx, starty);
+              ctx.lineTo(startx+(width/2), starty+(height/2));
+              ctx.lineTo(startx+width, starty);
+              ctx.closePath();
+
+              doColour(ctx);
+
+
+              // east segment
+              ctx.beginPath();
+              ctx.moveTo(startx+width, starty);
+              ctx.lineTo(startx+width, starty+height);
+              ctx.lineTo(startx+(width/2), starty+(height/2));
+              ctx.lineTo(startx+width, starty);
+              ctx.closePath();
+
+              doColour(ctx);
+
           }
 
-          if(hasOutline()) {
-              ctx.stroke();
-          }
      }
 
 
@@ -258,6 +301,29 @@
      function hasOutline() {
          return e("outline").checked;
      }
+
+     function doFill(ctx) {
+         if(hasFill()) {
+             ctx.fillStyle = getColour();
+             ctx.fill();
+
+         }
+
+     }
+
+     function doOutline(ctx) {
+         if(hasOutline()) {
+             ctx.strokeStyle = "rgba(33,33,33,0.75)";
+             ctx.stroke();
+         }
+
+     }
+
+     function doColour(ctx) {
+         doFill(ctx);
+         doOutline(ctx);
+     }
+
 
      function e(id) {
        return document.getElementById(id);
