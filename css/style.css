@@ -13,6 +13,13 @@ ul.controls li {
     max-height: 34px;
 }
 
+ul.controls li a {
+    color: #465D6B;
+    text-decoration: underline;
+    font-weight: bold;
+    text-shadow: none;
+}
+
 .btn-lg, li {
   box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.85);
 }
