@@ -108,6 +108,8 @@
                             ColourLovers Palette ID:
                         </span>
                         <input class="form-control" type="text" id="palette" value="629637"/>
+                        <span class="input-group-addon" id="palette-preview">
+                        </span>
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="button" onclick="getRandomPalette()">Random Palette &#128472;</button>
                         </span>
@@ -293,7 +295,21 @@
 
          e("palette").value = data["id"];
 
+         refreshPreview();
          }
+
+
+     function refreshPreview() {
+         preview = $("#palette-preview");
+         preview.html(" ");
+         output = [];
+
+         $.each(window.colours, function(index, value) {
+           $("<div></div>").addClass("preview").css("background-color", value).html("&nbsp;&nbsp;").appendTo(preview);
+
+         });
+
+     }
 
      init();
 

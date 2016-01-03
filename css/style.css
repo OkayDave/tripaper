@@ -20,3 +20,16 @@ ul.controls li {
 div.cover-container {
     width: 960px;
 }
+
+#palette-preview {
+    padding: 0 5 5 0;
+}
+
+#palette-preview div {
+    display: inline-block;
+    font-size: 21px;
+}
+
+#palette-preview:hover div {
+    width: 60px;
+}
