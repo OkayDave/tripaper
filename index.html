@@ -204,8 +204,8 @@
          startx = 0 + (col*width);
          starty = 0 + (row*height);
 
-         height += 2;
-         width += 5;
+         height += 0;
+         width += 0;
 
          if(Math.random() < 0.75) {
             ctx.beginPath();
@@ -255,16 +255,16 @@
           startx = 0 + (col*width);
           starty = 0 + (row*height);
 
-          height += 5;
-          width += 2;
+          height += 0;
+          width += 0;
 
-          if (Math.random() < 0.85) {
+          if (Math.random() < 0.01) {
             ctx.beginPath();
 
             ctx.moveTo(startx+width, starty);
 
-            ctx.lineTo(startx, starty);
-            ctx.lineTo(startx+width, starty+height);
+            ctx.lineTo(startx-1, starty);
+            ctx.lineTo(startx+width, starty+height+1);
             ctx.lineTo(startx+width, starty);
 
             ctx.closePath();
@@ -309,25 +309,29 @@
      }
 
      function doFill(ctx) {
+         colour = getColour();
          if(hasFill()) {
-             ctx.fillStyle = getColour();
+             ctx.fillStyle = colour;
              ctx.fill();
 
          }
+         return colour;
 
      }
 
-     function doOutline(ctx) {
+     function doOutline(ctx, passedColour) {
          if(hasOutline()) {
-             ctx.strokeStyle = "rgba(33,33,33,0.75)";
-             ctx.stroke();
+             ctx.strokeStyle = "rgba(33,33,33,0.95)";
+         } else {
+             ctx.strokeStyle = passedColour;
          }
 
+         ctx.stroke();
      }
 
      function doColour(ctx) {
-         doFill(ctx);
-         doOutline(ctx);
+         passedColour = doFill(ctx);
+         doOutline(ctx, passedColour);
      }
 
 
