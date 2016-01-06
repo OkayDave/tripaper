@@ -4,6 +4,8 @@ This generates images suitable for desktop wallpapers. It uses triangles and col
 
 Modern browser supporting HTML5 `<canvas />` required.
 
+[Demo available here](http://okaydave.github.io/tripaper)
+
 ## Built With
 
 [ColourLovers API](http://www.colourlovers.com/api/)
